@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Rooms - Grand Hotel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">🏨 Grand Hotel</div>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('rooms') }}">Rooms</a></li>
+                <li><a href="{{ url_for('register') }}">Register/Login</a></li>
+                {% if session.get('user_id') %}
+                    <li><a href="{{ url_for('logout') }}">Logout ({{ session.get('user_name') }})</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h1 style="text-align: center; margin: 40px 0; color: #667eea;">Available Rooms</h1>
+
+        <div class="rooms-grid">
+            {% for room in rooms %}
+            <div class="room-card">
+                <div class="room-image">🏨</div>
+                <div class="room-details">
+                    <h3>{{ room['room_name'] }}</h3>
+                    <span class="room-type">{{ room['room_type'] }}</span>
+
+                    <div class="room-info">
+                        <p><strong>Capacity:</strong> {{ room['capacity'] }} person(s)</p>
+                        <p><strong>Amenities:</strong> {{ room['amenities'] }}</p>
+                    </div>
+
+                    <div class="room-price">₹{{ room['price'] }}/night</div>
+
+                    <a href="{{ url_for('booking', room_id=room['id']) }}" class="btn btn-primary btn-block">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Grand Hotel. All rights reserved.</p>
+    </footer>
+</body>
+</html>

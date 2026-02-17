@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Hotel - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">🏨 Grand Hotel</div>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('rooms') }}">Rooms</a></li>
+        <li><a href="{{ url_for('register') }}">Register/Login</a></li>
+        {% if session.get('user_id') %}
+          <li><a href="{{ url_for('logout') }}">Logout ({{ session.get('user_name') }})</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero__content">
+      <h1>Welcome to Grand Hotel</h1>
+      <p>Experience luxury and comfort in the heart of the city</p>
+      <a href="{{ url_for('rooms') }}" class="btn">View Rooms</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🛏️</div>
+        <h3>Luxury Rooms</h3>
+        <p>Spacious and elegantly designed rooms with modern amenities</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🍽️</div>
+        <h3>Fine Dining</h3>
+        <p>Experience world-class cuisine at our restaurant</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💆</div>
+        <h3>Spa & Wellness</h3>
+        <p>Relax and rejuvenate at our luxury spa</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏊</div>
+        <h3>Swimming Pool</h3>
+        <p>Enjoy our rooftop pool with stunning views</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Grand Hotel. All rights reserved.</p>
+  </footer>
+</body>
+</html>
